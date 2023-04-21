@@ -18,6 +18,12 @@
                 @csrf
                 <textarea class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full" 
                 name="content" id="content" placeholder="What's on your mind?"></textarea>
+
+                
+            <div class="mt-4">
+                <label for="media" class="block text-sm font-medium text-gray-700">Attach media</label>
+                <input id="media" name="media[]" type="file" accept="image/*,video/*" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" multiple>
+            </div>
               
                 <!-- Add any other input fields you need, such as location or tags -->
                 <div class="mt-4">
@@ -33,62 +39,68 @@
     </div>
 
     <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        @foreach($posts as $post)
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <!-- Post content -->
-                <div class="flex items-start">
-                    <img src="https://picsum.photos/48" alt="Profile Image" class="w-12 h-12 rounded-full mr-4">
-                    <div class="flex-grow">
-                        <h2 class="font-semibold">{{ $post->user->name }}</h2>
-                        <p class="text-gray-500 text-sm">{{ $post->created_at->diffForHumans() }}</p>
-                    </div>
+    @foreach($posts as $post)
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+            <!-- Post content -->
+            <div class="flex items-start">
+                <img src="https://picsum.photos/48" alt="Profile Image" class="w-12 h-12 rounded-full mr-4">
+                <div class="flex-grow">
+                    <h2 class="font-semibold">{{ $post->user->name }}</h2>
+                    <p class="text-gray-500 text-sm">{{ $post->created_at->diffForHumans() }}</p>
                 </div>
-                <div class="flex items-start">
-                    <p class="mt-2">{{ $post->content }}</p>
-                </div>
-                <div class="items-center mt-4">
-                    <div class="flex items-center mt-4">
-                        @if ($post->likes_count > 0)
-                        <button class=" text-{{ $post->has_liked ? 'blue' : 'white' }}-500 font-semibold focus:outline-none like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
-                            <i class="fas fa-thumbs-up"></i>
-                            <span class="" id="likes-count-{{ $post->id }}">
-                                {{$post->likes_count}}
-                            </span>
-                        </button>
-                        @endif
-                
-                        <div class="flex-grow"></div>
-                        @if ($post->comments_count > 0) <!-- Add a flex-grow element to push the comment button to the right -->
-                        <button class=" ml-4" data-post-id="{{ $post->id }}">
-                            {{ $post->comments_count }} comment
-                        </button>
-                        @endif
-                    </div>
-                </div>
-
-                <div class=" mt-4">
-                    <hr class="my-4 border-t border-gray-300">
-                    <div class="flex justify-center">
-                        <button class="like-button ml-5 mr-5 text-{{ $post->has_liked ? 'blue' : 'white' }}-500 font-semibold focus:outline-none like-button-{{ $post->id }} mr-4" data-post-id="{{ $post->id }}">
-                            <i class="fas fa-thumbs-up"></i> Like
-                        </button>
-                        <button class="comment-button ml-5 mr-5" data-post-id="{{ $post->id }}">
-                            <i class="fas fa-comments text-gray-500"></i> Comment
-                        </button>
-                        <button class="ml-5 mr-5" data-post-id="{{ $post->id }}">
-                            <i class="fas fa-hand-holding-usd"></i> Tip
-                        </button>
-                    </div>
-                    <hr class="my-4 border-t border-gray-300">
-                </div>
-                
-                
-                
-                <div class="comments-container mt-4" id="comments-container-{{ $post->id }}"></div>
-
             </div>
-        @endforeach
-    </div>
+            <div class="flex items-start">
+                <p class="mt-2">{{ $post->content }}</p>
+            </div>
+            @if ($post->media != null && count($post->media) > 0)
+                <div class="flex items-center mt-4">
+                    @foreach ($post->media as $media)
+                        <img src="{{ asset($media) }}" class="w-32 h-32 mr-4">
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="items-center mt-4">
+                <div class="flex items-center mt-4">
+                    @if ($post->likes_count > 0)
+                    <button class=" text-{{ $post->has_liked ? 'blue' : 'white' }}-500 font-semibold focus:outline-none like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="" id="likes-count-{{ $post->id }}">
+                            {{$post->likes_count}}
+                        </span>
+                    </button>
+                    @endif
+            
+                    <div class="flex-grow"></div>
+                    @if ($post->comments_count > 0) <!-- Add a flex-grow element to push the comment button to the right -->
+                    <button class=" ml-4" data-post-id="{{ $post->id }}">
+                        {{ $post->comments_count }} comment
+                    </button>
+                    @endif
+                </div>
+            </div>
+                <hr class="my-3 border-t border-gray-300">
+                <div class="flex justify-center">
+                    <button class="like-button ml-5 mr-5 text-{{ $post->has_liked ? 'blue' : 'white' }}-500 font-semibold focus:outline-none like-button-{{ $post->id }} mr-4" data-post-id="{{ $post->id }}">
+                        <i class="fas fa-thumbs-up"></i> Like
+                    </button>
+                    <button class="comment-button ml-5 mr-5" data-post-id="{{ $post->id }}">
+                        <i class="fas fa-comments text-gray-500"></i> Comment
+                    </button>
+                    <button class="ml-5 mr-5" data-post-id="{{ $post->id }}">
+                        <i class="fas fa-hand-holding-usd"></i> Tip
+                    </button>
+                </div>
+                <hr class="my-3 border-t border-gray-300">
+            
+            
+            
+            <div class="comments-container mt-4" id="comments-container-{{ $post->id }}"></div>
+
+        </div>
+    @endforeach
+</div>
+
   
 
     @section('scripts')
