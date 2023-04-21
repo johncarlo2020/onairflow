@@ -21,15 +21,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    
-   
 });
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  
+    
 
     Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard'); // Show all posts
     Route::get('/posts/create', 'PostController@create')->name('posts.create'); // Show create form
@@ -40,9 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{id}', 'PostController@destroy')->name('posts.destroy'); // Delete post
     Route::post('/like/{postId}', [PostController::class, 'likePost'])->name('likePost');
 
-    
-Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comments.index');
-Route::post('/posts/{post}/comments', [CommentController::class, ' store'])->name('comments.store');
+    Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comments.index');
+    Route::post('/posts/{post}/comments', [CommentController::class, ' store'])->name('comments.store');
 });
 
 require __DIR__.'/auth.php';

@@ -1,0 +1,212 @@
+<style>
+    #hideDetails i {
+        font-size: 12px;
+        transition: transform 0.3s ease-out;
+    }
+
+    #hideDetails.open i {
+        transform: rotate(-90deg);
+    }
+
+    .accordion-content {
+        max-height: 400px;
+        opacity: 1;
+        overflow: hidden;
+        transition: max-height 0.5s, opacity 0.1s ease-out;
+    }
+
+    .accordion-content.open {
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.5s, opacity 0.1s ease-in;
+    }
+
+    .tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+    }
+
+    .tab {
+        border-bottom: 1px solid #dfd2d2;
+        cursor: pointer;
+        font-size: 1.1rem;
+        padding: 10px;
+        color: #979797;
+    }
+
+    .tab i {
+        margin-right: 0.5rem;
+    }
+
+    .tab.active {
+        border: 1px solid #dfd2d2;
+        border-bottom: none;
+        color: #00AFF0;
+    }
+
+    .tab-content {
+        display: none;
+        margin-top: 1rem;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .user-profile p {
+        color: #423d3d;
+        font-size: 13px;
+    }
+
+    .user-profile ul li {
+        margin-bottom: 10px;
+        color: #423d3d;
+        font-size: 13px;
+    }
+</style>
+<x-app-layout>
+    <div class="container mx-auto">
+        <div class="relative main-head ">
+            <div class="absolute top-0 left-0 w-full h-full gradient z-1"
+                style="background: linear-gradient(180deg, rgba(66, 66, 66, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);">
+            </div>
+            <div class="background-img">
+                <img src="https://api.fanso.club/covers/sgshs-1475689989.jpg" alt="">
+            </div>
+            <div class="absolute left-0 -bottom-14 bottom-data z-1">
+                <div class="flex items-end">
+                    <div class="p-1 border-2 rounded-full border-cyan-400">
+                        <img class="w-24 h-24 rounded-full shadow-lg img"
+                            src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
+                            alt="">
+                    </div>
+                    <div class="pb-2 ml-4 info">
+                        <p class="m-0 font-bold leading-none name">
+                            Anacheri <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span> <a
+                                class="text-cyan-400" href="#"><i class="fa-regular fa-pen-to-square"></i></a>
+                        </p>
+                        <p class="font-semibold leading-none text-cyan-400">
+                            @anlleleacheri
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute right-0 flex gap-2 social-icons -bottom-11">
+                <span
+                    class="flex items-center justify-center border-2 rounded-full text-1xl w-9 h-9 icon border-cyan-200 text-cyan-400 "><i
+                        class="fa-regular fa-heart"></i></span>
+                <span
+                    class="flex items-center justify-center border-2 rounded-full text-1xl w-9 h-9 icon border-cyan-200 text-cyan-400 "><i
+                        class="fa-solid fa-dollar-sign"></i></span>
+                <span
+                    class="flex items-center justify-center border-2 rounded-full text-1xl w-9 h-9 icon border-cyan-200 text-cyan-400 "><i
+                        class="fa-regular fa-comment-dots"></i></span>
+                <span
+                    class="flex items-center justify-center border-2 rounded-full text-1xl w-9 h-9 icon border-cyan-200 text-cyan-400 "><i
+                        class="fa-regular fa-bookmark"></i></span>
+                <span
+                    class="flex items-center justify-center border-2 rounded-full text-1xl w-9 h-9 icon border-cyan-200 text-cyan-400 "><i
+                        class="fa-solid fa-arrow-right-from-bracket"></i></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="container mx-auto mt-20">
+        <div class="button-container">
+            <button class="text-base" id="hideDetails">
+                <i class="fa-solid fa-chevron-down"></i><span class="w-4 h-4 bg-indigo-500 rounded-full "></span><small>
+                    United States of America</small>
+            </button>
+            <div class="text-base user-profile accordion-content " id="profileInfo">
+                <p class="mt-3 text-sm">
+                    #BePositive! #CEO Owner of @Cheri_Fit Activewear Backup Account @MoreAnaCheri Twitter: anacherimore
+                    PR: Talent.anacheri@gmail.com 👇🏼Let’s Connect
+                </p>
+                <div class="grid grid-cols-3 mt-3 text-sm ">
+                    <div>
+                        <ul>
+                            <li>Gender: Female</li>
+                            <li>Body Type: slim</li>
+                            <li>Height: 4'6" (137.16 Cm)</li>
+                            <li>Ethnicity: Asian</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Gender: Female</li>
+                            <li>Body Type: slim</li>
+                            <li>Height: 4'6" (137.16 Cm)</li>
+                            <li>Ethnicity: Asian</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Gender: Female</li>
+                            <li>Body Type: slim</li>
+                            <li>Height: 4'6" (137.16 Cm)</li>
+                            <li>Ethnicity: Asian</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto mt-10">
+        <div class=" tabs">
+            <button class="py-2 tab active" data-tab="tab1"><i class="fa-solid fa-fire"></i></button>
+            <button class="py-2 tab" data-tab="tab2"><i class="fa-solid fa-video"></i></button>
+            <button class="py-2 tab" data-tab="tab3"><i class="fa-regular fa-image"></i></button>
+        </div>
+
+        <div class="tab-content active" data-tab="tab1">
+            <h4>8 POSTS</h4>
+            <livewire:posts :posts="$posts" /> 
+        </div>
+
+        <div class="tab-content" data-tab="tab2">
+            <h2>Notifications</h2>
+            <p>You have no new notifications.</p>
+        </div>
+
+        <div class="tab-content" data-tab="tab3">
+            <h2>Profile</h2>
+            <p>Here is your user profile.</p>
+        </div>
+    </div>
+
+</x-app-layout>
+
+<script>
+    const myButton = document.querySelector('#hideDetails');
+    const myDiv = document.querySelector('#profileInfo');
+
+    myButton.addEventListener('click', () => {
+        myDiv.classList.toggle('open');
+        myButton.classList.toggle('open')
+    });
+
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabId = tab.getAttribute('data-tab');
+
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            tab.classList.add('active');
+
+            tabContents.forEach(content => {
+                if (content.getAttribute('data-tab') === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        });
+    });
+</script>
