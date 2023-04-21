@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Like;
 use App\Events\PostLiked;
 use App\Events\PostDisliked;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -28,9 +29,17 @@ class PostController extends Controller
                 $hasLiked = $post->likes()->where('user_id', $currentUser->id)->where('like',true)->exists();
                 $post->has_liked = $hasLiked;
             }
+
+            if (!empty($post->media)) {
+                $mediaUrls = explode(',', $post->media);
+                $post->media = $mediaUrls;
+            }
         }
+
+
         return view('dashboard',compact('posts'));
     }
+
 
     public function create()
     {
@@ -39,25 +48,35 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-          // Validate the input data
-          $request->validate([
+        // Validate the input data
+        $request->validate([
             'content' => 'required|max:255',
-            // Add validation rules for other input fields, such as 'image'
+            'media.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // add video validation rules as needed
         ]);
 
         // Create a new post
         $post = new Post();
         $post->user_id = auth()->id(); // Assuming the user is authenticated
         $post->content = $request->input('content');
-        // Set other attributes, such as 'image', based on input data
+
+        // Handle uploaded files
+        if ($request->hasFile('media')) {
+            $mediaUrls = [];
+            foreach ($request->file('media') as $file) {
+                $path = $file->store('public/media');
+                $mediaUrls[] = Storage::url($path);
+            }
+            $post->media = implode(',', $mediaUrls); // Convert array to string using comma as separator
+        }
 
         // Save the post to the database
         $post->save();
 
         // Redirect or return a response as needed
         return redirect()->back()->with('success', 'Post created successfully!');
-   
     }
+
+
 
     public function show($id)
     {
