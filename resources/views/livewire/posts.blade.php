@@ -153,9 +153,11 @@
          
       </div>
       <!-- hide this if comment is empty -->
+      @if($post->comments_count  == 0)
       <div class="p-3 text-sm text-center text-gray-400 bg-white rounded no-commnet">
          <p>Be the first to comment</p>
       </div>
+      @endif
    </div>
    @endforeach
 </div>
