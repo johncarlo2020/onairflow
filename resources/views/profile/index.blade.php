@@ -257,6 +257,38 @@
                             
                             $('#likes-count-' + postId).text(likesCount);
                         });
+
+                        var comment_count = pusher.subscribe('comment-count');
+
+                        // Bind event handler for "PostLiked" event
+                        comment_count.bind('App\\Events\\CommentEvent', function(data) {
+                            // Update the likes count for the corresponding post
+                            var postId = data.postId;
+                            var commentsCount = data.new_comment_count;
+
+                            console.log(commentsCount);
+                            $('#comments-count-' + postId).text(commentsCount)
+                        });
+
+                        $(document).on('click', '.comment_send', function() {
+                            var post_id = $(this).data('id');
+                            var comment_content = $('.comment_content_' + post_id).val();
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '{{ url('/posts') }}/' + post_id + '/comments',
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                    content: comment_content
+                                },
+                                success: function(response) {
+                                    // Do something with the response
+                                },
+                                error: function(xhr) {
+                                    // Handle error
+                                }
+                            });
+                        });
             </script>
         @endsection
 </x-app-layout>

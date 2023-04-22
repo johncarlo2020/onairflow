@@ -24,8 +24,10 @@
             </div>
             <div class="pb-2 ml-4 info">
                <p class="m-0 font-bold leading-none name">
-                  Anacheri <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span> <a
-                     class="text-cyan-400" href="#"><i class="fa-regular fa-pen-to-square"></i></a>
+                  {{ $post->user->name }} <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span><a
+                     class="text-cyan-400" href="#"><i class="fa-regular fa-pen-to-square"></i> </a>  {{ $post->created_at->diffForHumans() }}
+                   
+
                </p>
                <p class="font-semibold leading-none text-cyan-400">
                   @anlleleacheri
@@ -55,9 +57,9 @@
                      <i class="fa-regular fa-heart"></i>
                      <span class="inline-block text-sm"><small id="likes-count-{{ $post->id }}">{{ $post->likes_count }}</small></span>
                   </button>
-                  <button class="p-2 text-slate-800">
+                  <button class="p-2 text-{{ $post->has_comment ? 'blue' : 'slate' }}-500">
                      <i class="fa-regular fa-comments"></i>
-                     <span class="inline-block text-sm"><small>0</small></span>
+                     <span class="inline-block text-sm"><small id="comments-count-{{$post->id}}">{{ $post->comments_count }}</small></span>
                   </button>
                   <button class="p-2 text-slate-800">
                      <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -76,17 +78,16 @@
                </button>
             </div>
          </div>
-         <div class="pt-2 border-t-2 comment-box">
-            <form class="flex items-center w-full gap-3" action="">
-               <textarea class="w-full text-sm text-gray-300 border-none rounded shadow-sm" name="" id="" cols="30"
+         <div class="pt-2 border-t-2 comment-box flex items-center w-full gap-3">
+               <textarea class="w-full comment_content_{{$post->id}} text-sm text-gray-300 border-none rounded shadow-sm" name="" id="" cols="30"
                   rows="2">Add a comment here</textarea>
-               <button class="p-4 text-white rounded shadow-lg w-15 h-15 bg-cyan-600">
+               <button class="p-4 comment_send text-white rounded shadow-lg w-15 h-15 bg-cyan-600" data-id="{{$post->id}}">
                   <i class="fa-solid fa-paper-plane"></i>
                </button>
-            </form>
          </div>
          <!-- comment list block -->
-         <div class="p-3 mb-3 bg-white rounded shadow-sm comment-list">
+         @foreach($post->comment as $key => $comment)
+            <div class="p-3 mb-3 bg-white rounded shadow-sm comment-list">
             <div class="mb-2 comment-item">
                <div class="relative flex items-start">
                   <div class="relative rounded-full border-1 border-cyan-400">
@@ -95,10 +96,10 @@
                   </div>
                   <div class="w-full pb-2 mt-2 ml-4 info">
                      <p class="m-0 font-bold leading-none name">
-                        Anacheri  <small class="font-thin text-gray-400">a few seconds ago</small>
+                        {{$comment->user->name}}  <small class="font-thin text-gray-400">{{ $comment->created_at->diffForHumans() }}</small>
                      </p>
                      <p class="mt-2 text-sm font-thin text-black">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, ipsa!
+                        {{$comment->content}}
                      </p>
                      <div class="mt-3 buttons">
                         <button class="text-sm text-gray-400">
@@ -108,11 +109,11 @@
                            Reply
                         </button>
                      </div>
-                     <button class="mt-2 text-sm hide-coments text-cyan-400">
+                     {{-- <button class="mt-2 text-sm hide-coments text-cyan-400">
                         <i class="fa-solid fa-caret-down"></i> <span>Hide</span> reply
-                     </button>
+                     </button> --}}
                      <!-- reply list block -->
-                     <div class="reply-list">
+                     {{-- <div class="reply-list">
                         <div class="mb-2 comment-item">
                            <div class="relative flex items-start">
                               <div class="relative rounded-full border-1 border-cyan-400">
@@ -133,14 +134,14 @@
                                  </div>
                               </div>
                            </div>
-                     </div>
-                     <div class="flex items-center gap-2">
+                     </div> --}}
+                     {{-- <div class="flex items-center gap-2">
                         <textarea class="w-full mt-1 text-sm text-gray-400 border-none rounded shadow-sm bg-cyan-50" name="" id="" cols="30"
                         rows="2">Add a comment here</textarea>
                         <button class="h-10 px-2 text-sm text-gray-400 bg-white border-2 border-gray-200 rounded shadow-sm">
                            Reply
                         </button>
-                     </div>
+                     </div> --}}
                   </div>
                   <button class="absolute top-0 right-2">
                      <i class="fa-solid fa-ellipsis"></i>
@@ -148,6 +149,8 @@
                </div>
             </div>
          </div>
+         @endforeach
+         
       </div>
       <!-- hide this if comment is empty -->
       <div class="p-3 text-sm text-center text-gray-400 bg-white rounded no-commnet">

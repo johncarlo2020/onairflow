@@ -38,12 +38,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store'); // Store new post
     Route::get('/posts/{id}', 'PostController@show')->name('posts.show'); // Show single post
     Route::get('/posts/{id}/edit', 'PostController@edit')->name('posts.edit'); // Show edit form
+    
     Route::put('/posts/{id}', 'PostController@update')->name('posts.update'); // Update post
     Route::delete('/posts/{id}', 'PostController@destroy')->name('posts.destroy'); // Delete post
     Route::post('/like/{postId}', [PostController::class, 'likePost'])->name('likePost');
 
     Route::get('/posts/{post}/comments', [CommentController::class, 'index'])->name('comments.index');
-    Route::post('/posts/{post}/comments', [CommentController::class, ' store'])->name('comments.store');
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
 require __DIR__.'/auth.php';
