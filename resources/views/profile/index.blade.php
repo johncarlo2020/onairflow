@@ -83,7 +83,7 @@
                     </div>
                     <div class="pb-2 ml-4 info">
                         <p class="m-0 font-bold leading-none name">
-                            Anacheri <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span> <a
+                            {{$user->name}} <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span> <a
                                 class="text-cyan-400" href="#"><i class="fa-regular fa-pen-to-square"></i></a>
                         </p>
                         <p class="font-semibold leading-none text-cyan-400">

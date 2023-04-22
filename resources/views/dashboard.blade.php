@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 
- <div class="py-12"> 
+<livewire:posts :posts="$posts"  /> 
+ {{-- <div class="py-12"> 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold mb-6">Create Post</h1>
 
@@ -109,7 +110,7 @@
 
             </div>
         @endforeach
-    </div>
+    </div> --}}
 
 
 
