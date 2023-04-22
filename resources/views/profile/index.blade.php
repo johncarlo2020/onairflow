@@ -166,13 +166,13 @@
         </div>
 
         <div class="tab-content" data-tab="tab2">
-            <h2>Notifications</h2>
-            <p>You have no new notifications.</p>
+             <h4>8 VIDEOS</h4>
+            <livewire:video-gallery /> 
         </div>
 
         <div class="tab-content" data-tab="tab3">
-            <h2>Profile</h2>
-            <p>Here is your user profile.</p>
+              <h4>8 PHOTOS</h4>
+            <livewire:video-gallery /> 
         </div>
     </div>
 
