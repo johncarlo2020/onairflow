@@ -7,7 +7,6 @@ use Livewire\Component;
 class Posts extends Component
 {
     public $posts;
-    public $posts2;
 
     public function render()
     {
