@@ -8,67 +8,89 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Post;
+
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        $posts = [
-            (object) [
-                'title' => 'My First Blog Post',
-                'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
-                'author' => 'John Doe',
-                'published_at' => '2022-04-20 10:00:00',
-                'category' => 'Technology',
-                'tags' => ['laravel', 'php', 'web development'],
-                'likes' => 3
-            ],
-            (object) [
-                'title' => 'My First Blog Post',
-                'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
-                'author' => 'John Doe',
-                'published_at' => '2022-04-20 10:00:00',
-                'category' => 'Technology',
-                'tags' => ['laravel', 'php', 'web development'],
-                'likes' => 3
-            ],
-            (object) [
-                'title' => 'My First Blog Post',
-                'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
-                'author' => 'John Doe',
-                'published_at' => '2022-04-20 10:00:00',
-                'category' => 'Technology',
-                'tags' => ['laravel', 'php', 'web development'],
-                'likes' => 3
-            ],
-            (object) [
-                'title' => 'My First Blog Post',
-                'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
-                'author' => 'John Doe',
-                'published_at' => '2022-04-20 10:00:00',
-                'category' => 'Technology',
-                'tags' => ['laravel', 'php', 'web development'],
-                'likes' => 0
-            ],
-            (object) [
-                'title' => 'My First Blog Post',
-                'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
-                'author' => 'John Doe',
-                'published_at' => '2022-04-20 10:00:00',
-                'category' => 'Technology',
-                'tags' => ['laravel', 'php', 'web development'],
-                'likes' => 1
-            ],
-            (object) [
-                'title' => 'My First Blog Post',
-                'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
-                'author' => 'John Doe',
-                'published_at' => '2022-04-20 10:00:00',
-                'category' => 'Technology',
-                'tags' => ['laravel', 'php', 'web development'],
-                'likes' => 3
-            ],
-        ];
+        $posts = Post::orderBy('id', 'desc')->get();
+        foreach ($posts as $post) {
+            $likesCount = $post->likedPosts()->count(); 
+            $post->likes_count = $likesCount;
+
+            $commentsCount = $post->comments()->count(); 
+            $post->comments_count = $commentsCount;
+
+            $currentUser = Auth::user(); 
+            if ($currentUser) {
+                $hasLiked = $post->likes()->where('user_id', $currentUser->id)->where('like',true)->exists();
+                $post->has_liked = $hasLiked;
+            }
+
+            if (!empty($post->media)) {
+                $mediaUrls = explode(',', $post->media);
+                $post->media = $mediaUrls;
+            }
+        }
+
+        // $posts = [
+        //     (object) [
+        //         'title' => 'My First Blog Post',
+        //         'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
+        //         'author' => 'John Doe',
+        //         'published_at' => '2022-04-20 10:00:00',
+        //         'category' => 'Technology',
+        //         'tags' => ['laravel', 'php', 'web development'],
+        //         'likes' => 3
+        //     ],
+        //     (object) [
+        //         'title' => 'My First Blog Post',
+        //         'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
+        //         'author' => 'John Doe',
+        //         'published_at' => '2022-04-20 10:00:00',
+        //         'category' => 'Technology',
+        //         'tags' => ['laravel', 'php', 'web development'],
+        //         'likes' => 3
+        //     ],
+        //     (object) [
+        //         'title' => 'My First Blog Post',
+        //         'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
+        //         'author' => 'John Doe',
+        //         'published_at' => '2022-04-20 10:00:00',
+        //         'category' => 'Technology',
+        //         'tags' => ['laravel', 'php', 'web development'],
+        //         'likes' => 3
+        //     ],
+        //     (object) [
+        //         'title' => 'My First Blog Post',
+        //         'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
+        //         'author' => 'John Doe',
+        //         'published_at' => '2022-04-20 10:00:00',
+        //         'category' => 'Technology',
+        //         'tags' => ['laravel', 'php', 'web development'],
+        //         'likes' => 0
+        //     ],
+        //     (object) [
+        //         'title' => 'My First Blog Post',
+        //         'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
+        //         'author' => 'John Doe',
+        //         'published_at' => '2022-04-20 10:00:00',
+        //         'category' => 'Technology',
+        //         'tags' => ['laravel', 'php', 'web development'],
+        //         'likes' => 1
+        //     ],
+        //     (object) [
+        //         'title' => 'My First Blog Post',
+        //         'body' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, lorem a feugiat tempus, ipsum enim vulputate quam, id fermentum velit velit vel purus. Nulla facilisi. Nulla consectetur, libero ut laoreet pellentesque, quam magna efficitur lorem, vel dictum ex urna in quam. Nam id dapibus sapien. Sed elementum libero quis metus mattis, eget dapibus urna imperdiet. Aliquam erat volutpat. Morbi sed volutpat odio, sit amet fringilla eros. In malesuada, quam a lacinia porttitor, turpis velit aliquet est, a molestie nisi lorem sit amet metus. Sed maximus nisl vitae erat hendrerit ullamcorper.',
+        //         'author' => 'John Doe',
+        //         'published_at' => '2022-04-20 10:00:00',
+        //         'category' => 'Technology',
+        //         'tags' => ['laravel', 'php', 'web development'],
+        //         'likes' => 3
+        //     ],
+        // ];
         return view('profile.index',compact('posts'));
     }
 

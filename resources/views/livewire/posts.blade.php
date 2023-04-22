@@ -33,11 +33,11 @@
             </div>
          </div>
          <p class="mt-2 text-sm text">
-            {{ $post->body }}
+            {{ $post->content }}
 
          </p>
          <p  class="mt-2 text-sm text">
-            #{{ implode(' #', $post->tags) }}
+            {{-- #{{ implode(' #', $post->tags) }} --}}
          </p>
          <div class="relative content">
             <video class="mt-3" width="100%" height="400" controls>
@@ -51,9 +51,9 @@
          <div class="flex justify-between border-b-1 icons-option border-cyan-400">
             <div class="first">
                <div class="icon-with-num">
-                  <button class="p-2 text-slate-800">
+                  <button class="p-2 like-button  text-{{ $post->has_liked ? 'blue' : 'slate' }}-500 like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
                      <i class="fa-regular fa-heart"></i>
-                     <span class="inline-block text-sm"><small>{{ $post->likes }}</small></span>
+                     <span class="inline-block text-sm"><small id="likes-count-{{ $post->id }}">{{ $post->likes_count }}</small></span>
                   </button>
                   <button class="p-2 text-slate-800">
                      <i class="fa-regular fa-comments"></i>
@@ -156,6 +156,8 @@
    </div>
    @endforeach
 </div>
+
+
 <!-- 
 todo 
 

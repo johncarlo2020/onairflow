@@ -176,37 +176,87 @@
         </div>
     </div>
 
+
+@section('scripts')
+    @parent
+        <script>
+                const myButton = document.querySelector('#hideDetails');
+                const myDiv = document.querySelector('#profileInfo');
+
+                myButton.addEventListener('click', () => {
+                    myDiv.classList.toggle('open');
+                    myButton.classList.toggle('open')
+                });
+
+                const tabs = document.querySelectorAll('.tab');
+                const tabContents = document.querySelectorAll('.tab-content');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.getAttribute('data-tab');
+
+                        tabs.forEach(tab => {
+                            tab.classList.remove('active');
+                        });
+
+                        tab.classList.add('active');
+
+                        tabContents.forEach(content => {
+                            if (content.getAttribute('data-tab') === tabId) {
+                                content.classList.add('active');
+                            } else {
+                                content.classList.remove('active');
+                            }
+                        });
+                    });
+                });
+
+                // Like button click event handler
+                        $(document).on('click', '.like-button', function(){
+                            var postId = $(this).data('post-id');
+                            console.log('asdasdas');
+                            $.ajax({
+                                url: '{{ url('/like/') }}/'+postId,
+                                type: 'POST',
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                    postId: postId
+                                }
+                            }).done(function(data) {
+                                if(data == 'like'){
+                                    $('.like-button-'+postId).removeClass('text-gray-500');
+                                    $('.like-button-'+postId).addClass('text-blue-500');
+
+                                }else{
+                                $('.like-button-'+postId).addClass('text-gray-500');
+                                    $('.like-button-'+postId).removeClass('text-blue-500');
+                                }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.log('Error: ' + textStatus + ' - ' + errorThrown);
+                            });
+                        });
+
+                        var likes = pusher.subscribe('post-likes');
+
+                        // Bind event handler for "PostLiked" event
+                        likes.bind('App\\Events\\PostLiked', function(data) {
+                            // Update the likes count for the corresponding post
+                            var postId = data.postId;
+                            var likesCount = data.likesCount;
+
+                            $('#likes-count-' + postId).text(likesCount);
+                        });
+
+                        var dislikes = pusher.subscribe('post-dislikes');
+
+                        // Bind event handler for "PostLiked" event
+                        dislikes.bind('App\\Events\\PostDisliked', function(data) {
+                            // Update the likes count for the corresponding post
+                            var postId = data.postId;
+                            var likesCount = data.likesCount;
+                            
+                            $('#likes-count-' + postId).text(likesCount);
+                        });
+            </script>
+        @endsection
 </x-app-layout>
-
-<script>
-    const myButton = document.querySelector('#hideDetails');
-    const myDiv = document.querySelector('#profileInfo');
-
-    myButton.addEventListener('click', () => {
-        myDiv.classList.toggle('open');
-        myButton.classList.toggle('open')
-    });
-
-    const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const tabId = tab.getAttribute('data-tab');
-
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            tab.classList.add('active');
-
-            tabContents.forEach(content => {
-                if (content.getAttribute('data-tab') === tabId) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                }
-            });
-        });
-    });
-</script>
