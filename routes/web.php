@@ -23,6 +23,10 @@ Route::get('/', function () {
 Route::get('/test', function () {
 });
 
+Route::get('/profile/add_post', function () {
+    return view('profile.post.addPost');
+});
+
 
 Route::middleware('auth')->group(function () {
 
