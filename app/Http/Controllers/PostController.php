@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Events\PostLiked;
 use App\Events\PostDisliked;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Comment;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +25,23 @@ class PostController extends Controller
             $commentsCount = $post->comments()->count(); 
             $post->comments_count = $commentsCount;
 
+            $comments = Comment::with('user') // Eager load the user relationship
+            ->where('post_id', $post->id)
+            ->get();
+    
+            foreach ($comments as $comment) {
+            $userName = $comment->user->name; 
+            }
+            $post->comment=$comments;
+
             $currentUser = Auth::user(); 
             if ($currentUser) {
                 $hasLiked = $post->likes()->where('user_id', $currentUser->id)->where('like',true)->exists();
                 $post->has_liked = $hasLiked;
+            }
+            if ($currentUser) {
+                $hasComment = Comment::where('user_id', $currentUser->id)->where('post_id', $post->id)->exists();
+                $post->has_comment= $hasComment;
             }
 
             if (!empty($post->media)) {
