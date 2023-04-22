@@ -265,9 +265,11 @@
                             // Update the likes count for the corresponding post
                             var postId = data.postId;
                             var commentsCount = data.new_comment_count;
+                            $('#comments-count-' + postId).text(commentsCount);
+                            $('.comment-button-'+postId).removeClass('text-slate-500');
+                            $('.comment-button-'+postId).addClass('text-blue-500');
 
-                            console.log(commentsCount);
-                            $('#comments-count-' + postId).text(commentsCount)
+                            
                         });
 
                         $(document).on('click', '.comment_send', function() {
@@ -282,7 +284,7 @@
                                     content: comment_content
                                 },
                                 success: function(response) {
-                                    // Do something with the response
+                                    //append mo dito ung new comment naka json response ung data ng comment
                                 },
                                 error: function(xhr) {
                                     // Handle error

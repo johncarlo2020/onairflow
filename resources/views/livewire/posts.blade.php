@@ -57,7 +57,7 @@
                      <i class="fa-regular fa-heart"></i>
                      <span class="inline-block text-sm"><small id="likes-count-{{ $post->id }}">{{ $post->likes_count }}</small></span>
                   </button>
-                  <button class="p-2 text-{{ $post->has_comment ? 'blue' : 'slate' }}-500">
+                  <button class="p-2 comment-button-{{$post->id}} text-{{ $post->has_comment ? 'blue' : 'slate' }}-500">
                      <i class="fa-regular fa-comments"></i>
                      <span class="inline-block text-sm"><small id="comments-count-{{$post->id}}">{{ $post->comments_count }}</small></span>
                   </button>
