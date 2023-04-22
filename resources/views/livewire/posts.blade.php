@@ -1,19 +1,20 @@
-<style>
-   .overlay-blur::after{
-      position: absolute;
-      top: 0;
-      left: 0;
-      filter: blur(224px);
-      z-index: 1;
-      content: '';
-      width: 100%;
-      height: 100%;
-      background-color: #ffffff;
-   }
 
-</style>
 <div class="container pt-4 mx-auto">
-   @foreach($posts as $post)
+   <style>
+      .overlay-blur::after {
+         position: absolute;
+         top: 0;
+         left: 0;
+         filter: blur(224px);
+         z-index: 1;
+         content: '';
+         width: 100%;
+         height: 100%;
+         background-color: #ffffff;
+      }
+   </style>
+   
+   @foreach($curentPost as $post)
    <div class="mt-5 mb-3 post">
       <div class="">
          <div class="flex items-end">
@@ -42,11 +43,12 @@
             {{-- #{{ implode(' #', $post->tags) }} --}}
          </p>
          <div class="relative content">
-            <video class="mt-3" width="100%" height="400" controls>
+            <video class="mt-3" width="100%" height="auto" controls>
                <source src="https://youtu.be/W88FUZcjJEw" type="video/mp4">
                Your browser does not support the video tag.
             </video>
-            <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-white overlay-blur overlay z-2">
+            <div
+               class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg text-white overlay-blur overlay z-2">
                <i class="fa-solid fa-lock"></i>
             </div>
          </div>
@@ -92,7 +94,8 @@
                <div class="relative flex items-start">
                   <div class="relative rounded-full border-1 border-cyan-400">
                      <img class="w-10 h-10 rounded-full shadow-lg img"
-                        src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg" alt="">
+                        src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
+                        alt="">
                   </div>
                   <div class="w-full pb-2 mt-2 ml-4 info">
                      <p class="m-0 font-bold leading-none name">
@@ -118,11 +121,12 @@
                            <div class="relative flex items-start">
                               <div class="relative rounded-full border-1 border-cyan-400">
                                  <img class="w-6 h-6 rounded-full shadow-lg img"
-                                    src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg" alt="">
+                                    src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
+                                    alt="">
                               </div>
                               <div class="w-full pb-2 mt-1 ml-2 info">
                                  <p class="m-0 font-bold leading-none name">
-                                    Anacheri  <small class="font-thin text-gray-400">a few seconds ago</small>
+                                    Anacheri <small class="font-thin text-gray-400">a few seconds ago</small>
                                  </p>
                                  <p class="mt-2 text-sm font-thin text-black">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, ipsa!
@@ -165,11 +169,9 @@
 
 <!-- 
 todo 
-
 add function for comment and reply 
 hide reply function and animation 
 like event for liked post , comment and reply 
-hide post overlay -
 online indicator for online user per post
 hide coments ?
 send tip function

@@ -162,7 +162,7 @@
 
         <div class="tab-content active" data-tab="tab1">
             <h4>8 POSTS</h4>
-            <livewire:posts :posts="$posts" /> 
+            <livewire:posts :posts="$posts" :posts2="$posts2"  /> 
         </div>
 
         <div class="tab-content" data-tab="tab2">
