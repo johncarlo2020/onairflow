@@ -8,7 +8,7 @@
 <div class="mb-3">
     <div class="mt-3 video-list">
         @foreach ($testList as $data)
-             <livewire:cardpost /> 
+             <livewire:cardpost :data="$data" /> 
         @endforeach
     </div>
 </div>
