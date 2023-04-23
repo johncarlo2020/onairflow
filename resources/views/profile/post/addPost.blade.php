@@ -137,53 +137,58 @@
             </div>
         </div>
         <div class="hidden p-3 mt-2 bg-white rounded Create-post-photo" id="forPost">
-            <form action="">
-                <textarea class="w-full post-text-area" name="" id="" cols="30" placeholder="Compose new post"
-                    rows="2"></textarea>
+            <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+                <textarea class="w-full post-text-area" name="content" id="" cols="30" placeholder="Compose new post"
+                    rows="2" required></textarea>
                     <div class="mt-3 text-gray-400 select-from">
                         <div class="input-group">
-                          <input type="radio" id="only_for_subscriber" name="visibility" value="only_for_subscriber">
-                          <label for="only_for_subscriber">Only for Subscribers</label>
-                        </div>
-                        <div class="input-group">
-                          <input type="radio" id="pay_per_view" name="visibility" value="pay_per_view">
+                          <input type="radio" required id="pay_per_view" name="visibility" value="ppv">
                           <label for="pay_per_view">Pay per View</label>
                         </div>
                         <div class="input-group">
-                          <input type="radio" id="free_for_everyone" name="visibility" value="free_for_everyone">
+                          <input type="radio" required id="free_for_everyone" name="visibility" value="free">
                           <label for="free_for_everyone">Free for Everyone</label>
                         </div>
                       </div>
                 <div class="hidden px-1 mt-3 text-sm input-group" id="formPrice">
-                    <label class="block mb-1 text-sm text-red" for="price">Price*</label>
-                    <input class="w-20 h-8 border-gray-300 rounded" type="number">
+                    <label class="block mb-1 text-sm text-red"  for="price">Price*</label>
+                    <input class="w-20 h-8 border-gray-300 rounded" name="price" type="number">
                 </div>
                 <div class="flex gap-3 p-1 mt-3 file-upload main-upload">
                     <div class="add-photo" id="formAddPhotos">
-                        <label for="file-upload" class="custom-file-upload">
+                        <label for="photoInput" class="custom-file-upload">
                             <i class="fa-solid fa-plus"></i> Add photos
                         </label>
-                        <input id="file-upload" type="file" />
+                        <input id="photoInput" name="image" type="file" accept="image/*"
+                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                title="Choose an image to upload">
                     </div>
                     <div class="add-video" id="formAddVideo">
-                        <label for="file-upload" class="custom-file-upload">
+                        <label for="videoInput" class="custom-file-upload">
                             <i class="fa-regular fa-file-video"></i> Add Video
                         </label>
-                        <input id="file-upload" type="file" />
+                        <input id="videoInput" name="video" type="file" accept="video/*"
+                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                title="Choose an video to upload">
                     </div>
                 </div>
                 <div class="flex gap-3 p-1 mt-3 file-upload">
                     <div class="add-thumbnail" id="fromAddthumbnail">
-                        <label for="file-upload" class="custom-file-upload">
+                        <label for="thumbnail" class="custom-file-upload">
                             <i class="fa-solid fa-camera-retro"></i> Add thumnail
                         </label>
-                        <input id="file-upload" type="file" />
+                        <input id="thumbnail" name="thumbnail" type="file" accept="image/*"
+                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                title="Choose an image to upload">
                     </div>
                     <div class="add-video" id="formAddTeaser">
-                        <label for="file-upload" class="custom-file-upload">
+                        <label for="teaser" class="custom-file-upload">
                             <i class="fa-regular fa-file-video"></i> Add teaser
                         </label>
-                        <input id="file-upload" type="file" />
+                        <input id="teaser" name="teaser" type="file" accept="video/*"
+                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                title="Choose an image to upload">
                     </div>
                 </div>
                 <div class="mt-20">
@@ -259,7 +264,7 @@
         radioButtons.forEach(radioButton => {
             radioButton.addEventListener('change', () => {
                 if (radioButton.checked) {
-                    if(radioButton.value == 'pay_per_view'){
+                    if(radioButton.value == 'ppv'){
                         formPrice.classList.remove('hidden');
                     }
                     else{

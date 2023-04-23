@@ -46,10 +46,7 @@ class ProfileController extends Controller
                 $post->has_comment= $hasComment;
             }
 
-            if (!empty($post->media)) {
-                $mediaUrls = explode(',', $post->media);
-                $post->media = $mediaUrls;
-            }
+           
         }
 
         // $posts = [

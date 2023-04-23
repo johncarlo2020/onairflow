@@ -12,7 +12,7 @@ class Post extends Model
     protected $table = 'posts';
 
     // Define the fillable attributes for mass assignment
-    protected $fillable = ['user_id', 'content', 'image','video', 'media'];
+    protected $fillable = ['user_id', 'content', 'image','video', 'media', 'price','thumbnail', 'teaser'];
 
     // Define relationships with other models
     public function user()

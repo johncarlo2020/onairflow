@@ -62,25 +62,41 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the input data
-        $request->validate([
-            'content' => 'required|max:255',
-            'media.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // add video validation rules as needed
-        ]);
+        $price = 0;
 
         // Create a new post
         $post = new Post();
         $post->user_id = auth()->id(); // Assuming the user is authenticated
         $post->content = $request->input('content');
 
-        // Handle uploaded files
-        if ($request->hasFile('media')) {
-            $mediaUrls = [];
-            foreach ($request->file('media') as $file) {
-                $path = $file->store('public/media');
-                $mediaUrls[] = Storage::url($path);
-            }
-            $post->media = implode(',', $mediaUrls); // Convert array to string using comma as separator
+        if($request->visibility == 'ppv'){
+           $price = $request->price; 
+        }
+        $post->price = $price;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $post->image = $imageName;
+        }
+        if ($request->hasFile('thumbnail')) {
+            $image = $request->file('thumbnail');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $post->thumbnail = $imageName;
+        }
+        if ($request->hasFile('video')) {
+            $video = $request->file('video');
+            $videoName = time() . '.' . $video->getClientOriginalExtension();
+            $video->move(public_path('videos'), $videoName);
+            $post->video = $videoName;
+        }
+        if ($request->hasFile('teaser')) {
+            $video = $request->file('teaser');
+            $videoName = time() . '.' . $video->getClientOriginalExtension();
+            $video->move(public_path('videos'), $videoName);
+            $post->teaser = $videoName;
         }
 
         // Save the post to the database

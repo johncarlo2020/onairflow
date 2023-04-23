@@ -37,16 +37,22 @@
          </div>
          <p class="mt-2 text-sm text">
             {{ $post->content }}
+            
 
          </p>
          <p  class="mt-2 text-sm text">
             {{-- #{{ implode(' #', $post->tags) }} --}}
          </p>
          <div class="relative content">
+         @if($post->video)
             <video class="mt-3" width="100%" height="auto" controls>
-               <source src="https://youtu.be/W88FUZcjJEw" type="video/mp4">
+               <source src="{{ asset('videos/' . $post->video) }}" type="video/mp4">
                Your browser does not support the video tag.
             </video>
+         @endif
+         @if($post->image)
+         <img  class="mt-3" width="100%" height="auto" src="{{ asset('images/' . $post->image) }}" alt="Image">
+         @endif
             <div
                class="absolute top-0 left-0 flex items-center justify-center w-full h-full text-lg text-white overlay-blur overlay z-2">
                <i class="fa-solid fa-lock"></i>
