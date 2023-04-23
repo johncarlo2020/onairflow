@@ -94,8 +94,12 @@
     </div>
     <a href="">
         <div>
-            <img src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg" alt=""
+            <img src="{{ asset('images/' . $data->image) }}" alt=""
                 class="post-image">
+             <video class="class="post-image"" >
+               <source src="{{ asset('videos/' . $data->video) }}" type="video/mp4">
+               Your browser does not support the video tag.
+            </video>
             <div class="vidio-info">
                 <div class="icons">
                     <span>
@@ -113,10 +117,10 @@
                 </div>
             </div>
             <div class="price">
-                <span>$40.00</span>
+                <span>P {{{$data->price}}}.00</span>
             </div>
             <div {{ Popper::arrow()->size('small')->pop(' is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has'); }} class="bottom-title">
-                <p>Lorem ipsum dolor sit amet...</p>
+                <p>{{ Str::limit($data->content, $limit = 5, $end = '...') }}</p>
             </div>
         </div>
     </a>

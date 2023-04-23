@@ -12,8 +12,11 @@ class VideoGallery extends Component
 
     public function mount(){
         $posts = Post::where('user_id', auth()->id())
-        ->orderBy('id', 'desc')
-        ->get();
+            ->whereNotNull('image')
+            ->orWhereNotNull('video')
+            ->orderBy('id', 'desc')
+            ->get();
+
 
 
 
