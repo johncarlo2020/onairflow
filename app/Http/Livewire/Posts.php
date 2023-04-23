@@ -15,11 +15,4 @@ class Posts extends Component
         ]);
     }
 
-    public function mount($posts)
-    {
-        $this->posts = $posts;
-    
-
-    }
-
 }
