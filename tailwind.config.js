@@ -13,15 +13,22 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
-            container:{
+            screens: {
+                'sm': '640px',
+                'md': '768px',
+                'lg': '1024px',
+                'xl': '1024px',
+                '2xl': '1140px',
+              },
+              container: {
                 padding: {
-                    DEFAULT: '1rem',
-                    sm: '2rem',
-                    lg: '4rem',
-                    xl: '5rem',
-                    '2xl': '7rem',
+                  DEFAULT: '1rem',
+                  sm: '2rem',
+                  lg: '6rem',
+                  xl: '7rem',
                 },
-            }
+                center: true,
+              },
         },
     },
 

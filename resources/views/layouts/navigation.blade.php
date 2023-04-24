@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="container mx-auto">
         <div class="grid grid-cols-4 py-2 navigation">
-            <a href="#" class="text-2xl text-center text-cyan-400 icon">
+            <a  href="{{ url('/dashboard') }}" class="text-2xl text-center text-cyan-400 icon">
                 <i class="fa-solid fa-house"></i>
             </a>
             <a href="{{ url('/profile/add_post') }}" class="text-2xl text-center text-cyan-400 icon">

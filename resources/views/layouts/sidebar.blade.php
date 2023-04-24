@@ -84,7 +84,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="text-sm text-gray-500 ">
+                <a href="{{ route('profile.edit') }}"  class="text-sm text-gray-500 ">
                     <i class="fa-solid fa-user-large"></i>
                     Edit Profile
                 </a>
