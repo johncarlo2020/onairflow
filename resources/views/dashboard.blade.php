@@ -6,9 +6,9 @@
     </x-slot>
     <div class="mx-auto ">
         <swiper-container navigation="true" autoplay-delay="2500">
-            <swiper-slide ><img class="w-full" src="https://api.fanso.club/iqakg-01.png" alt=""></swiper-slide>
-            <swiper-slide><img class="w-full" src="https://api.fanso.club/v4yi2-02.png" alt=""></swiper-slide>
-            <swiper-slide><img class="w-full" src="https://api.fanso.club/fveza-03.png" alt=""></swiper-slide>
+            <swiper-slide ><img class="object-cover object-center w-full h-64" src="{{ asset('images/159.jpg') }}" alt=""></swiper-slide>
+            <swiper-slide><img class="object-cover object-center w-full h-64" src="{{ asset('images/200.jpg') }}" alt=""></swiper-slide>
+            <swiper-slide><img class="object-cover object-center w-full h-64" src="{{ asset('images/900.jpg') }}" alt=""></swiper-slide>
         </swiper-container>
     </div>
     <div class="container mt-4">
