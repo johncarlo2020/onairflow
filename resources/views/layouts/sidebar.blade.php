@@ -51,19 +51,21 @@
     <div class="flex items-start justify-between px-6 py-4 profile-info-sidebar">
         <div class="flex items-center">
             <div class="relative rounded-full border-1 border-cyan-400">
-                <img class="w-10 h-10 rounded-full shadow-lg img"
-                    src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
-                    alt="">
+                    @if (empty($currentImages['profile_image']))
+                        <img class="w-10 h-10 rounded-full shadow-lg img"
+                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                            alt="">
+                    @else
+                        <img class="w-10 h-10 rounded-full shadow-lg img" src="{{$currentImages['profile_image'] }}" alt="Profile Image">
+                    @endif
                 <span class="absolute w-2 h-2 bg-yellow-300 rounded-full -right-0 ol-indicator bottom-2"></span>
             </div>
             <div class="pb-2 ml-2 info">
-                <p class="pt-2 m-0 text-sm font-bold leading-none name">
-                    Anacheri <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span> <a
+                <p class="pt-2 m-0 text-sm font-bold leading-none name"> {{auth()->user()->getUserName()}}
+                    <span class="text-cyan-400"><i class="fa-solid fa-certificate"></i></span> <a
                         class="text-cyan-400" href="#"></a>
                 </p>
-                <p class="mt-1 text-sm font-thin leading-none text-cyan-400">
-                    @anlleleacheri
-                </p>
+               
             </div>
         </div>
         <button class="text-sm text-gray-400" id="closeSidebar">

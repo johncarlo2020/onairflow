@@ -20,17 +20,19 @@
          <div class="p-3 pt-4 bg-white rounded shadow-sm">
             <div class="flex items-end">
                <div class="relative rounded-full border-1 border-cyan-400">
-                  <img class="w-10 h-10 rounded-full shadow-lg img"
-                     src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg" alt="">
+                  @if (empty($post->user->image))
+                        <img class="w-10 h-10 rounded-full shadow-lg img"
+                     src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="">
+                    @else
+                        <img class="w-10 h-10 rounded-full shadow-lg img" src="{{ asset('images/' . $post->user->image) }}" alt="Profile Image">
+                    @endif
+               
                   <span class="absolute w-2 h-2 bg-yellow-300 rounded-full -right-0 ol-indicator bottom-2"></span>
                </div>
                <div class="ml-2 info">
                   <p class="m-0 font-bold leading-none name">
                      {{ $post->user->name }} <span class="text-cyan-400"><i class="text-sm fa-solid fa-certificate"></i></span><a
                         class="text-sm text-cyan-400" href="#"> <i class="text-sm fa-regular fa-pen-to-square"></i></a> <span class="text-sm text-gray-500 ">{{ $post->created_at->diffForHumans() }}</span>
-                  </p>
-                  <p class="text-sm font-semibold leading-none text-cyan-400">
-                     @anlleleacheri
                   </p>
                </div>
             </div>
@@ -102,9 +104,13 @@
             <div class="mb-2 comment-item">
                <div class="relative flex items-start">
                   <div class="relative rounded-full border-1 border-cyan-400">
-                     <img class="w-10 h-10 rounded-full shadow-lg img"
-                        src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
-                        alt="">
+                   
+                        @if (empty($post->user->image))
+                        <img class="w-10 h-10 rounded-full shadow-lg img"
+                     src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="">
+                    @else
+                        <img class="w-10 h-10 rounded-full shadow-lg img" src="{{ asset('images/' . $post->user->image) }}" alt="Profile Image">
+                    @endif
                   </div>
                   <div class="w-full pb-2 mt-2 ml-4 info">
                      <p class="m-0 font-bold leading-none name">
@@ -130,7 +136,7 @@
                            <div class="relative flex items-start">
                               <div class="relative rounded-full border-1 border-cyan-400">
                                  <img class="w-6 h-6 rounded-full shadow-lg img"
-                                    src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
+                                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                                     alt="">
                               </div>
                               <div class="w-full pb-2 mt-1 ml-2 info">

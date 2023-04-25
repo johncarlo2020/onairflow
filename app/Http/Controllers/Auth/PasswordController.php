@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use App\Models\User;
+
 
 class PasswordController extends Controller
 {
@@ -23,6 +25,27 @@ class PasswordController extends Controller
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
+
+        return back()->with('status', 'password-updated');
+    }
+
+    public function image(Request $request): RedirectResponse
+    {
+        $user = User::find(auth()->id());
+        
+        if ($request->hasFile('fileUploadProfile')) {
+            $image = $request->file('fileUploadProfile');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $user->image = $imageName;
+        }
+        if ($request->hasFile('fileUploadCover')) {
+            $image = $request->file('fileUploadCover');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $user->cover = $imageName;
+        }
+        $user->save();
 
         return back()->with('status', 'password-updated');
     }

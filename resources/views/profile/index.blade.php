@@ -72,14 +72,22 @@
                 style="background: linear-gradient(180deg, rgba(66, 66, 66, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);">
             </div>
             <div class="background-img">
-                <img src="https://api.fanso.club/covers/sgshs-1475689989.jpg" alt="">
+                @if (empty($user->cover))
+                    <img src="https://api.fanso.club/covers/sgshs-1475689989.jpg" alt="Cover Image">
+                @else
+                    <img src="{{ asset('images/' . $user->cover) }}" alt="Profile Image">
+                @endif
             </div>
             <div class="absolute left-0 -bottom-14 bottom-data z-1">
                 <div class="flex items-end">
                     <div class="p-1 border-2 rounded-full border-cyan-400">
-                        <img class="w-24 h-24 rounded-full shadow-lg img"
-                            src="https://api.fanso.club/avatars/iqxfw-236903663_265766858375887_2609456498566276573_n.jpg"
+                    @if (empty($currentImages['profile_image']))
+                        <img class="w-10 h-10 rounded-full shadow-lg img"
+                            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                             alt="">
+                    @else
+                        <img class="w-10 h-10 rounded-full shadow-lg img" src="{{$currentImages['profile_image'] }}" alt="Profile Image">
+                    @endif
                     </div>
                     <div class="pb-2 ml-4 info">
                         <p class="m-0 font-bold leading-none name">

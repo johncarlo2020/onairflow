@@ -19,10 +19,12 @@
       </div>
    </div>
    <div class="mt-11">
-      <form>
-         <input type="file" id="fileUploadProfile" name="fileUploadProfile" style="display: none;">
+      <form method="post" action="{{ route('password.image') }} " enctype="multipart/form-data">
+      @csrf
+         <input type="file" id="fileUploadProfile" name="fileUploadProfile" accept="image/*" style="display: none;">
+       
          <input type="file" id="fileUploadCover" name="fileUploadCover" style="display: none;">
-         <x-primary-button>{{ __('Save') }}</x-primary-button>
+         <input type="submit" name="" id="">
        </form>
    </div>
 </section>
