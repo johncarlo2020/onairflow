@@ -197,12 +197,15 @@
                                 },
                                 success: function(response) {
                                     //append mo dito ung new comment naka json response ung data ng comment
+                                    console.log(response);
+                                    cloneDiv(response);
                                 },
                                 error: function(xhr) {
                                     // Handle error
                                 }
                             });
                         });
+ 
     </script>
     @endsection
 
