@@ -64,6 +64,30 @@
         color: #423d3d;
         font-size: 13px;
     }
+    .main-head{
+        height: 280px;
+    }
+
+    @media (max-width: 600px) {
+        .main-head{
+            height: 10rem;
+        }
+        .social-icons span{
+            font-size: 10px;
+            padding: 3px;
+            width: 20px;
+            height: 20px;
+            color: #ffff;
+            border: solid 1px #ffff;
+        }
+        .social-icons{
+            column-gap: 5px !important;
+            bottom: 5px !important;
+            right:5px !important;
+        }
+      }
+
+
 </style>
 <x-app-layout>
     <div class="container mx-auto">
@@ -71,9 +95,7 @@
             <div class="absolute top-0 left-0 w-full h-full gradient z-1"
                 style="background: linear-gradient(180deg, rgba(66, 66, 66, 0.3) 50%, rgba(255, 255, 255, 0.5) 100%);">
             </div>
-            <div class="background-img">
-                <img src="https://api.fanso.club/covers/sgshs-1475689989.jpg" alt="">
-            </div>
+            <img class="absolute top-0 left-0 object-cover w-full h-full background-img" src="https://api.fanso.club/covers/sgshs-1475689989.jpg" alt="">
             <div class="absolute left-0 -bottom-14 bottom-data z-1">
                 <div class="flex items-end">
                     <div class="p-1 border-2 rounded-full border-cyan-400">
@@ -153,24 +175,24 @@
             </div>
         </div>
     </div>
-    <div class="container mx-auto mt-10">
-        <div class=" tabs">
+    <div class="container mx-auto mt-10 ">
+        <div class="pb-10 tabs">
             <button class="py-2 tab active" data-tab="tab1"><i class="fa-solid fa-fire"></i></button>
             <button class="py-2 tab" data-tab="tab2"><i class="fa-solid fa-video"></i></button>
             <button class="py-2 tab" data-tab="tab3"><i class="fa-regular fa-image"></i></button>
         </div>
 
-        <div class="tab-content active" data-tab="tab1">
+        <div class="pb-10 tab-content active" data-tab="tab1">
             <h4>8 POSTS</h4>
             <livewire:posts :posts="$posts"  /> 
         </div>
 
-        <div class="tab-content" data-tab="tab2">
+        <div class="pb-10 tab-content " data-tab="tab2">
              <h4>8 VIDEOS</h4>
             <livewire:video-gallery type="videos"  /> 
         </div>
 
-        <div class="tab-content" data-tab="tab3">
+        <div class="pb-10 tab-content " data-tab="tab3">
               <h4>8 PHOTOS</h4>
             <livewire:video-gallery type="images"  /> 
         </div>
