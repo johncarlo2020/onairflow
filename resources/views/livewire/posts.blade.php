@@ -105,11 +105,11 @@
                <div class="relative flex items-start">
                   <div class="relative rounded-full border-1 border-cyan-400">
                    
-                        @if (empty($post->user->image))
+                        @if (empty($comment->user->image))
                         <img class="w-10 h-10 rounded-full shadow-lg img"
                      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="">
                     @else
-                        <img class="w-10 h-10 rounded-full shadow-lg img" src="{{ asset('images/' . $post->user->image) }}" alt="Profile Image">
+                        <img class="w-10 h-10 rounded-full shadow-lg img" src="{{ asset('images/' . $comment->user->image) }}" alt="Profile Image">
                     @endif
                   </div>
                   <div class="w-full pb-2 mt-2 ml-4 info">

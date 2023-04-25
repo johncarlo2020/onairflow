@@ -67,7 +67,7 @@ class User extends Authenticatable
     public function getCoverImageAttribute(): ?string
     {
         if ($this->cover) {
-            return asset('images/' . $this->image);
+            return asset('images/' . $this->cover);
         }
 
         return null;
@@ -79,7 +79,7 @@ class User extends Authenticatable
 
         return [
             'profile_image' => $profileImage ? asset('images/' . $this->image) : null,
-            'cover_image' => $coverImage ? asset('images/' . $this->image) : null,
+            'cover_image' => $coverImage ? asset('images/' . $this->cover) : null,
         ];
     }
     public function getUserName()
