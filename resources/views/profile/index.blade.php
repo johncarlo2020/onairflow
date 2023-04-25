@@ -167,12 +167,12 @@
 
         <div class="tab-content" data-tab="tab2">
              <h4>8 VIDEOS</h4>
-            <livewire:video-gallery /> 
+            <livewire:video-gallery type="videos"  /> 
         </div>
 
         <div class="tab-content" data-tab="tab3">
               <h4>8 PHOTOS</h4>
-            <livewire:video-gallery /> 
+            <livewire:video-gallery type="images"  /> 
         </div>
     </div>
 

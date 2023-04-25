@@ -10,12 +10,19 @@ class VideoGallery extends Component
 {
     public $testList = [];
 
-    public function mount(){
-        $posts = Post::where('user_id', auth()->id())
-            ->whereNotNull('image')
-            ->orWhereNotNull('video')
+    public function mount($type){
+        if($type === "videos"){
+            $posts = Post::where('user_id', auth()->id())
+            ->whereNotNull('video')
             ->orderBy('id', 'desc')
             ->get();
+        }else{
+            $posts = Post::where('user_id', auth()->id())
+            ->whereNotNull('image')
+            ->orderBy('id', 'desc')
+            ->get();
+        }
+        
 
 
 
