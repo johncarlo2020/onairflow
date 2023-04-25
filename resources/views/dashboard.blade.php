@@ -140,9 +140,9 @@
 
         $(document).on('click', '.like-button', function () {
             var postId = $(this).data('post-id');
-
+            console.log('{{url('/like/') }}/'+postId);
             $.ajax({
-                url: '{{ url(' / like / ') }}/' + postId,
+                url: '{{ url('/like/') }}/'+postId,
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -184,72 +184,25 @@
             $('#likes-count-' + postId).text(likesCount);
         });
 
-        $('.comment-button').on('click', function () {
-            var postId = $(this).data('post-id');
-            var commentsContainer = $('#comments-container-' + postId);
+       $(document).on('click', '.comment_send', function() {
+                            var post_id = $(this).data('id');
+                            var comment_content = $('.comment_content_' + post_id).val();
 
-            // Use Ajax to fetch comments for the specific post
-            $.ajax({
-                url: '{{ url(' / posts') }}/' + postId +
-                    '/comments', // Replace with your actual endpoint URL
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    commentsContainer.append(
-                        '<input type="text" class="mt-4 comment-input" placeholder="Add a comment..." /><button class="px-4 py-2 mt-2 font-semibold text-white bg-blue-500 rounded submit-comment-button">Submit</button>'
-                    );
-
-                    // Update the comments container with the fetched comments
-                    $.each(data, function (index, comment) {
-                        var commentHTML = `
-                                <div class="flex items-start">
-                                    <img src="https://picsum.photos/48" alt="Profile Image" class="w-6 h-6 mr-4 rounded-full">
-                                    <div class="flex-grow">
-                                        <h2 class="font-semibold">${comment.user.name}</h2>
-                                        <p class="text-sm text-gray-500">${comment.created_at}</p>
-                                        <p class="mt-2">${comment.content}</p>
-                                    </div>
-                                </div>
-                            `;
-                        // Append the comment HTML to the comments container
-                        commentsContainer.append(commentHTML);
-                    });
-                    // Append input text field and submit comment button
-
-                    // Submit comment button click event handler
-                    $('.submit-comment-button').on('click', function () {
-                        var commentInput = $(this).siblings('.comment-input');
-                        var commentContent = commentInput.val();
-
-                        // Use Ajax to submit comment
-                        $.ajax({
-                            url: '/posts/' + postId +
-                                '/comments', // Replace with your actual endpoint URL
-                            type: 'POST',
-                            data: {
-                                content: commentContent
-                            },
-                            dataType: 'json',
-                            success: function (response) {
-                                // Update the comments container with the new comment
-                                commentsContainer.append(
-                                    '<div class="comment"><p class="text-gray-600">' +
-                                    response.content + '</p></div>');
-                                commentInput.val('');
-                            },
-                            error: function (xhr, status, error) {
-                                // Handle error if necessary
-                                console.error(xhr.responseText);
-                            }
+                            $.ajax({
+                                type: 'POST',
+                                url: '{{ url('/posts') }}/' + post_id + '/comments',
+                                data: {
+                                    _token: '{{ csrf_token() }}',
+                                    content: comment_content
+                                },
+                                success: function(response) {
+                                    //append mo dito ung new comment naka json response ung data ng comment
+                                },
+                                error: function(xhr) {
+                                    // Handle error
+                                }
+                            });
                         });
-                    });
-                },
-                error: function (xhr, status, error) {
-                    // Handle error if necessary
-                    console.error(xhr.responseText);
-                }
-            });
-        });
     </script>
     @endsection
 

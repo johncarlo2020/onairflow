@@ -214,7 +214,7 @@
                 // Like button click event handler
                         $(document).on('click', '.like-button', function(){
                             var postId = $(this).data('post-id');
-                            console.log('asdasdas');
+                            console.log(postId);
                             $.ajax({
                                 url: '{{ url('/like/') }}/'+postId,
                                 type: 'POST',
