@@ -36,6 +36,9 @@
         border-radius: 4px;
         color: rgb(138, 129, 129);
     }
+    .sidebar-links li i,.sidebar-links li p{
+        pointer-events: none;
+    }
 
     .sidebar-links li:hover {
         background-color: #1ea2f1;
