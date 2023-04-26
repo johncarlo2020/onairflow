@@ -38,6 +38,8 @@
        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
         <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
         <script>
 
         Pusher.logToConsole = true;
@@ -61,6 +63,23 @@
             sidebar.classList.remove('open');
             body.classList.remove('side-open')
         });
+
+        function cloneDiv(data) {
+
+            var textarea = document.getElementById('textInput'+data.post_id);
+            var divToClone = document.querySelector('.comment-list');
+            var parent = document.querySelector('#commentContainer'+data.post_id);
+            var clone = divToClone.cloneNode(true);
+            var content = clone.querySelector('.comment-text');
+            var time = clone.querySelector('.time-comment');
+            var commentCreatedAt = new Date(data.created_at);
+            var diff = moment(commentCreatedAt).fromNow();
+            content.textContent = data.content;
+            time.textContent = diff;
+            parent.insertBefore(clone, parent.childNodes[0]);
+            
+            textarea.value = '';
+        }
     </script>
    
     @yield('scripts')

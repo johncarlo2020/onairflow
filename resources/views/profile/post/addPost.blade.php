@@ -161,7 +161,7 @@
                             <i class="fa-solid fa-plus"></i> Add photos
                         </label>
                         <input id="photoInput" name="image" type="file" accept="image/*"
-                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                class="hidden w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 title="Choose an image to upload">
                     </div>
                     <div class="add-video" id="formAddVideo">
@@ -169,7 +169,7 @@
                             <i class="fa-regular fa-file-video"></i> Add Video
                         </label>
                         <input id="videoInput" name="video" type="file" accept="video/*"
-                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                class="hidden w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 title="Choose an video to upload">
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                             <i class="fa-solid fa-camera-retro"></i> Add thumnail
                         </label>
                         <input id="thumbnail" name="thumbnail" type="file" accept="image/*"
-                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                class="hidden w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 title="Choose an image to upload">
                     </div>
                     <div class="add-video" id="formAddTeaser">
@@ -187,7 +187,7 @@
                             <i class="fa-regular fa-file-video"></i> Add teaser
                         </label>
                         <input id="teaser" name="teaser" type="file" accept="video/*"
-                                class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                class="hidden w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 title="Choose an image to upload">
                     </div>
                 </div>

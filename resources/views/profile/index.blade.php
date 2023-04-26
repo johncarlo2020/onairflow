@@ -310,13 +310,14 @@
 
                             $.ajax({
                                 type: 'POST',
-                                url: '{{ url('/posts') }}/' + post_id + '/comments',
+                                  url: "{{ url('/posts') }}/" + post_id + "/comments",
                                 data: {
                                     _token: '{{ csrf_token() }}',
                                     content: comment_content
                                 },
                                 success: function(response) {
                                     //append mo dito ung new comment naka json response ung data ng comment
+                                    cloneDiv(data);
                                 },
                                 error: function(xhr) {
                                     // Handle error

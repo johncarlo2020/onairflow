@@ -92,14 +92,15 @@
          </div>
      
          <div class="flex items-center w-full gap-3 pt-2 mb-3 border-t-2 comment-box">
-               <textarea class="w-full comment_content_{{$post->id}} text-sm placeholder:text-sm placeholder:text-gray-400 border-none rounded shadow-sm" name="" id="" cols="30"
+               <textarea class="w-full comment_content_{{$post->id}} text-sm placeholder:text-sm placeholder:text-gray-400 border-none rounded shadow-sm" name="" id="textInput{{$post->id}}" cols="30"
                   rows="2" placeholder="Add a comment here"></textarea>
                <button class="p-4 text-sm text-white rounded shadow-lg w-18 comment_send h-15 bg-cyan-600" data-id="{{$post->id}}">
                   <i class="fa-solid fa-paper-plane"></i>
                </button>
          </div>
          <!-- comment list block -->
-         @foreach($post->comment as $key => $comment)
+         <div class="parent-container" id="commentContainer{{$post->id}}">
+            @foreach($post->comment as $key => $comment)
             <div class="p-3 mb-3 bg-white rounded shadow-sm comment-list" id="postContainer{{$post->id}}">
             <div class="mb-2 comment-item">
                <div class="relative flex items-start">
@@ -114,9 +115,9 @@
                   </div>
                   <div class="w-full pb-2 mt-2 ml-4 info">
                      <p class="m-0 font-bold leading-none name">
-                        {{$comment->user->name}}  <small class="font-thin text-gray-400">{{ $comment->created_at->diffForHumans() }}</small>
+                        {{$comment->user->name}}  <small class="font-thin text-gray-400 time-comment">{{ $comment->created_at->diffForHumans() }}</small>
                      </p>
-                     <p class="mt-2 text-sm font-thin text-black">
+                     <p class="mt-2 text-sm font-thin text-black comment-text">
                         {{$comment->content}}
                      </p>
                      <div class="mt-3 buttons">
@@ -169,10 +170,11 @@
             </div>
          </div>
          @endforeach
-         
       </div>
       <!-- hide this if comment is empty -->
       @if($post->comments_count  == 0)
+         </div>
+      
       <div class="p-3 text-sm text-center text-gray-400 bg-white rounded no-commnet">
          <p>Be the first to comment</p>
       </div>
