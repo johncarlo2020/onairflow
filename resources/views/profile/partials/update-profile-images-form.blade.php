@@ -8,13 +8,13 @@
           {{ __('Ensure that the image best describe you.') }}
       </p>
   </header>
-   <div class="relative w-full mt-5 rounded  edit-Images">
+   <div class="relative w-full mt-5 rounded edit-Images">
       @if (empty($currentImages['cover_image']))
                <img class=class="absolute top-0 left-0 object-cover object-center w-full h-full rounded " 
                      src="https://api.fanso.club/covers/sgshs-1475689989.jpg"
-                     alt="">
+                     alt="" id="previewBackdrop">
             @else
-               <img class=class="absolute top-0 left-0 object-cover object-center w-full h-full rounded "  src="{{$currentImages['cover_image'] }}" alt="Profile Image">
+               <img class=class="absolute top-0 left-0 object-cover object-center w-full h-full rounded "  src="{{$currentImages['cover_image'] }}" alt="Profile Image" id="previewBackdrop">
             @endif
       <button class="absolute px-2 py-1 text-sm text-white bg-red-500 rounded shadow-sm top-1 right-1" onclick="document.getElementById('fileUploadCover').click()"><i class="fa-solid fa-pen"></i> Edit cover</button>
       <div class="absolute button-container left-3 -bottom-5">
@@ -22,9 +22,10 @@
             @if (empty($currentImages['profile_image']))
                <img class="absolute top-0 left-0 object-cover w-full h-full rounded-full"
                      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                     alt="">
+                     alt=""
+                     id="previewProfile">
             @else
-               <img class="absolute top-0 left-0 object-cover w-full h-full rounded-full" src="{{$currentImages['profile_image'] }}" alt="Profile Image">
+               <img class="absolute top-0 left-0 object-cover w-full h-full rounded-full" src="{{$currentImages['profile_image'] }}" alt="Profile Image" id="previewProfile">
             @endif
             <i class="absolute p-2 text-white rounded-full shadow-lg -right-2 bg-cyan-400 bottom-1 fa-solid fa-camera"></i>
          </button>
