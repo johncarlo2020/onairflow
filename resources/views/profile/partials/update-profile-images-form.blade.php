@@ -8,13 +8,13 @@
           {{ __('Ensure that the image best describe you.') }}
       </p>
   </header>
-   <div class="relative w-full mt-5 rounded h-44 edit-Images">
+   <div class="relative w-full mt-5 rounded  edit-Images">
       @if (empty($currentImages['cover_image']))
-               <img class="absolute top-0 left-0 object-fill w-full h-full rounded " 
+               <img class=class="absolute top-0 left-0 object-cover object-center w-full h-full rounded " 
                      src="https://api.fanso.club/covers/sgshs-1475689989.jpg"
                      alt="">
             @else
-               <img class="absolute top-0 left-0 object-fill w-full h-full rounded "  src="{{$currentImages['cover_image'] }}" alt="Profile Image">
+               <img class=class="absolute top-0 left-0 object-cover object-center w-full h-full rounded "  src="{{$currentImages['cover_image'] }}" alt="Profile Image">
             @endif
       <button class="absolute px-2 py-1 text-sm text-white bg-red-500 rounded shadow-sm top-1 right-1" onclick="document.getElementById('fileUploadCover').click()"><i class="fa-solid fa-pen"></i> Edit cover</button>
       <div class="absolute button-container left-3 -bottom-5">
@@ -30,13 +30,53 @@
          </button>
       </div>
    </div>
-   <div class="mt-11">
+   <div class="flex gap-2 mt-11">
       <form method="post" action="{{ route('password.image') }} " enctype="multipart/form-data">
       @csrf
-         <input type="file" id="fileUploadProfile" name="fileUploadProfile" accept="image/*" style="display: none;">
+         <input type="file" id="fileUploadProfile" name="fileUploadProfile" accept="image/*" onchange="previewImage(event)" style="display: none;">
        
-         <input type="file" id="fileUploadCover" name="fileUploadCover" style="display: none;">
+         <input type="file" id="fileUploadCover" name="fileUploadCover" style="display: none;" onchange="previewImage(event)">
          <input type="submit" name="" id="">
        </form>
+       <button class="hidden px-3 py-1 text-sm text-white bg-red-800 rounded" id="discard" onclick="clearForm()">Discard</button>
    </div>
 </section>
+
+  <script defer>
+      const previewProfile = document.getElementById('previewProfile');
+      const previewBackdrop = document.getElementById('previewBackdrop');
+      const discard = document.querySelector('#discard')
+      const oldProfileImg = previewProfile.src;
+      const oldBackdropImg = previewBackdrop.src;
+
+      
+      function previewImage(event) {
+        const file = event.target.files[0];
+        const fileId = event.target.id;
+     
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function() {
+      
+
+            if(fileId == 'fileUploadProfile'){
+               previewProfile.src = reader.result;
+            }else{
+               previewBackdrop.src = reader.result;
+            }
+        
+        }
+        discard.classList.remove('hidden');
+      }
+
+      function clearForm(){
+          // reset the file inputs
+         document.getElementById('fileUploadProfile').value = '';
+         document.getElementById('fileUploadCover').value = '';
+
+         previewProfile.src = oldProfileImg;
+         previewBackdrop.src = oldBackdropImg ;
+
+         discard.classList.add('hidden');
+      }
+    </script>

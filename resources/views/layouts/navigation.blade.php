@@ -8,7 +8,7 @@
             <a href="{{ url('/profile/add_post') }}" class="text-2xl text-center text-cyan-400 icon">
                 <i class="fa-regular fa-square-plus"></i>
             </a>
-            <a href="#" class="text-2xl text-center text-cyan-400 icon">
+            <a href="{{ url('/chatify') }}" class="text-2xl text-center text-cyan-400 icon">
                 <i class="fa-regular fa-comment-dots"></i>
             </a>
             <button class="flex justify-center icon" id="sidebarOpen">
